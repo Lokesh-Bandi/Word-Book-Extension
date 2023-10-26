@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Word Search",
+    "version": "1.0.1",
+    "author": "LokeshBandi@Work",
+    "description": "The extension which helps in searching the unknown word by just selecting the text over the document",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Word Search"
+    },
+    "icons": {
+        "32" : "images/default_icon.png"
+    },
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+    "content_scripts":  [{
+        "matches" : ["https://*/*"],
+        "js" : ["content-script.js"]
+    }]
+}
