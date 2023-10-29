@@ -28,3 +28,19 @@ input {
     font-size: 15px;
     border-radius: 8px;
 }
+.result {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 18px;
+    gap: 15px;
+    padding: 5px;
+}
+.contentBox {
+    border: 2px solid grey;
+    padding: 10px 5px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
