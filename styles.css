@@ -1,3 +1,7 @@
+
+* {
+    box-sizing: border-box;
+}
 @font-face {
     font-family: 'agbalumoregular';
     src: url('./fonts/agbalumo-regular-webfont.woff2') format('woff2'),
@@ -5,11 +9,16 @@
     font-weight: normal;
     font-style: normal;
 }
-
-* {
-    box-sizing: border-box;
+::-webkit-scrollbar {
+    width: 2px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #451952;
 }
 
+.main-wrapper{
+    padding: 5px;
+}
 .container {
     display: flex;
     flex-direction: column;
@@ -20,10 +29,10 @@
     gap: 10px;
     width: 400px;
     background-color: #efecec;
-
 }
 .label {
     font-size: 20px;
+    color: #451952;
     font-family: 'agbalumoregular';
 }
 .inputDiv{
@@ -68,4 +77,9 @@ input::placeholder {
     border-radius: 8px;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    text-align: center;
+}
+.info-text{
+    color: #ae445a;
+    text-align: center;
 }

@@ -10,7 +10,9 @@ const instantSearch = () => {
 		  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${wordToBeSearch}`;
 			childElement.classList.add('text-info')
 			childElement.appendChild(document.createTextNode("Fetching Data..."));
-			fetch(url).then(res => res.json()).then(result => updateResult(result))
+			fetch(url).then(res => res.json()).then(result => {
+				updateResult(result)
+			})
 		}
 		catch(err){
 			console.log(err)
@@ -34,14 +36,24 @@ const DEFAULT_INPUT_RESULT = {
 const updateResult = async (fetchedData) => {
   const resultDiv = document.getElementsByClassName('result')[0];
 	resultDiv.innerHTML = '';
-  fetchedData[0].meanings.forEach(eachMeaning => {
-      eachMeaning.definitions.forEach((eachDefinition) => {
-        const childElement = document.createElement('div');
-        childElement.classList.add('contentBox')
-        childElement.appendChild(document.createTextNode(eachDefinition.definition));
-        resultDiv.appendChild(childElement)
-    })
-  })
+	if(fetchedData[0]){
+		fetchedData[0].meanings.forEach(eachMeaning => {
+				eachMeaning.definitions.forEach((eachDefinition) => {
+					const childElement = document.createElement('div');
+					childElement.classList.add('contentBox')
+					childElement.appendChild(document.createTextNode(eachDefinition.definition));
+					resultDiv.appendChild(childElement)
+			})
+		})
+	}
+	else{
+		if(fetchedData.message){
+			const childElement = document.createElement('div');
+			childElement.classList.add('info-text', 'warningDiv')
+			childElement.appendChild(document.createTextNode(fetchedData.message));
+			resultDiv.appendChild(childElement)
+		}
+	}
 }
 
 const updateRecentFiveWords = (recentFiveWords) => {
