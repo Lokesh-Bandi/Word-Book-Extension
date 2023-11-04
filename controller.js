@@ -1,7 +1,11 @@
 const searchBtn = document.getElementById('submitBtn');
+const linkButtons = Object.values(document.getElementsByClassName('link-div'));
+const linksContainer = document.getElementsByClassName('other-links-div')[0];
+const inputSearchEle =  document.getElementById("word-input");
+
 
 const instantSearch = () => {
-	let wordToBeSearch = document.getElementById('word-input').value.split(' ')[0];
+	let wordToBeSearch = inputSearchEle.value.split(' ')[0].toLowerCase();
 	const resultDiv = document.getElementsByClassName('result')[0];
 	resultDiv.innerHTML = '';
 	const childElement = document.createElement('div');
@@ -24,7 +28,6 @@ const instantSearch = () => {
 		resultDiv.appendChild(childElement)
 	}
 }
-searchBtn.addEventListener('click', instantSearch)
 
 
 const DEFAULT_INPUT_RESULT = {
@@ -36,7 +39,10 @@ const DEFAULT_INPUT_RESULT = {
 const updateResult = async (fetchedData) => {
   const resultDiv = document.getElementsByClassName('result')[0];
 	resultDiv.innerHTML = '';
-	if(fetchedData[0]){
+	if(fetchedData.length){
+		
+		linksContainer.style.display = 'flex';
+
 		fetchedData[0].meanings.forEach(eachMeaning => {
 				eachMeaning.definitions.forEach((eachDefinition) => {
 					const childElement = document.createElement('div');
@@ -68,16 +74,40 @@ const clearScreen = () => {
 	}, 1000)
 }
 
-function updateText(){
+function extensionInIt(){
     chrome.storage?.sync.get(['selectedText'], function(data) {
       if(data.selectedText){
-        document.getElementById("word-input").value = data.selectedText;
+        inputSearchEle.value = data.selectedText;
       }
     });
     chrome.storage?.sync.get(['wordInfo'], function(data) {
       updateResult(data.wordInfo)
     });
+
 		clearScreen()
-  }
+}
+
+const handleLinkClick = (linkName) => {
+	let wordToBeSearch = inputSearchEle.value.split(' ')[0].toLowerCase();
+	let navigationURL = `https://www.${linkName}.com/search?q=${wordToBeSearch}+meaning`;
+	switch(linkName){
+		case 'google': 
+			navigationURL = `https://www.google.com/search?q=${wordToBeSearch}+meaning`
+			break;
+		case 'oxford': 
+			navigationURL = `https://www.oxfordlearnersdictionaries.com/definition/english/${wordToBeSearch}`
+			break;
+		case 'cambridge': 
+			navigationURL = `https://dictionary.cambridge.org/dictionary/english/${wordToBeSearch}`
+			break;
+	}
+  chrome.tabs.create({ url: navigationURL });
+}
+
   
-document.addEventListener('DOMContentLoaded', updateText);
+document.addEventListener('DOMContentLoaded', extensionInIt);
+searchBtn.addEventListener('click', instantSearch)
+linkButtons.forEach((eachButton) => {
+	const linkName = eachButton.getAttribute('data-name');
+	eachButton.addEventListener('click', () => handleLinkClick(linkName));
+})
