@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener(async (message) => {
+  console.log(message)
   const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${message.selectedText}`;
   let fetchedData;
   try {

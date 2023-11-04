@@ -1,46 +1,71 @@
+@font-face {
+    font-family: 'agbalumoregular';
+    src: url('./fonts/agbalumo-regular-webfont.woff2') format('woff2'),
+         url('./fonts/agbalumo-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #fff;
+    padding: 20px 10px;
     gap: 10px;
+    width: 400px;
+    background-color: #efecec;
+
 }
 .label {
     font-size: 20px;
+    font-family: 'agbalumoregular';
 }
 .inputDiv{
     padding: 10px;
+    width:300px;
 }
 input {
     height: 50px;
-    font-size: 25px;
+    font-size: 20px !important;
     padding: 5px 8px;
     outline: none;
-    border-radius: 12px;
+    border-radius: 20px !important;
     border: 2px solid  navy;
+    font-family: 'Josefin Sans', sans-serif;
 }
-.submitBtn{
-    cursor: pointer;
-    padding: 10px;
-    background-color: black;
-    color: azure;
-    font-size: 15px;
-    border-radius: 8px;
+input::placeholder {
+    font-family: 'agbalumoregular';
+    font-size: 18px;
+}
+#submitBtn{
+    font-family: 'agbalumoregular';
+    background-color: #dfb6b2;
+    border: 2px solid #854f6c;
+    width: 100px;
+    padding: 8px;
+    border-radius: 20px;
 }
 .result {
     display: flex;
     flex-direction: column;
-    background: white;
     align-items: flex-start;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     gap: 15px;
     padding: 5px;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
 }
 .contentBox {
-    border: 2px solid grey;
+    border: 2px solid #854f6c;
     padding: 10px 5px;
     border-radius: 8px;
     box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
